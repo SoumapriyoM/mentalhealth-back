@@ -116,12 +116,13 @@ __pypackages__/
 # Celery stuff
 celerybeat-schedule
 celerybeat.pid
-
+.artifacts
 # SageMath parsed files
 *.sage.py
 
 # Environments
 .artifacts
+artifacts/
 .venv
 env/
 venv/
