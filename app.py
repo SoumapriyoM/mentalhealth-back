@@ -2,13 +2,14 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import pandas as pd
 from src.pipeline.predict_pipeline import PredictPipeline, CustomData  # Adjust the import path based on your project structure
+from src.logger import logging
+from src.utills import load_object
 import os
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import string
 
-application=FastAPI()
-app = application
+app=FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Allow all origins, you can also specify specific origins
@@ -77,12 +78,12 @@ async def predict(data: InputData):
 
         # Get data as DataFrame
         data_df = custom_data.get_data_as_data_frame()
-        print(data_df)
+        logging.info(data_df)
 
         # Predict using the model
         predictions = predict_pipeline.predict(data_df)
 
-        print(predictions)
+        logging.info(predictions)
 
         return predictions[0] # Convert numpy array to list
 
